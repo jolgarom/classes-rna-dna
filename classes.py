@@ -1,12 +1,11 @@
 class Rna(str):
     sequence = ''
-    
+
     def __init__(self, sequence):
-        if isinstance(self.sequence, str):
-            self.sequence = sequence.upper()
-        else:
-            raise TypeError
-            
+        self.sequence = sequence.upper()
+        if not all(symb in 'ACUG' for symb in self.sequence):
+            raise Exception('Error: incorrect sequence')
+
     def gc(self):
         gc_count = self.sequence.count('C') + self.sequence.count('G')
         gc_content = gc_count * 100 / len(self.sequence)
@@ -14,21 +13,18 @@ class Rna(str):
 
     def reverse_complement(self):
         complement_sequence = self.sequence.replace('A', 'u').replace('U', 'a').replace('G', 'c').replace('C', 'g')
-        complement_sequence = complement_sequence.upper()
-        return complement_sequence[::-1]
+        return Rna(complement_sequence[::-1].upper())
 
 
 class Dna(Rna):
     def __init__(self, sequence):
-        if isinstance(self.sequence, str):
-            self.sequence = sequence.upper()
-        else:
-            raise TypeError
+        self.sequence = sequence.upper()
+        if not all(symb in 'ACTG' for symb in self.sequence):
+            raise Exception('Error: incorrect sequence')
 
     def transcribe(self):
-        return self.sequence.replace('T', 'U')
+        return Rna(self.sequence.replace('T', 'U'))
 
     def reverse_complement(self):
         complement_sequence = self.sequence.replace('A', 't').replace('T', 'a').replace('G', 'c').replace('C', 'g')
-        complement_sequence = complement_sequence.upper()
-        return complement_sequence[::-1]
+        return Dna(complement_sequence[::-1].upper())
