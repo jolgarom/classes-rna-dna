@@ -4,22 +4,20 @@ def gc(self):
     return round(gc_content, 2)
 
 
-def reverse_complement(self):
-    complement_sequence = self.sequence.replace('A', 't').replace('T', 'a').replace('G', 'c').replace('C', 'g')
-    complement_sequence = complement_sequence.upper()
-    return complement_sequence[::-1]
-
-
 class Dna:
     sequence = ''
     gc = gc
-    reverse_complement = reverse_complement
 
     def __init__(self, sequence):
         if isinstance(self.sequence, str):
             self.sequence = sequence.upper()
         else:
             raise TypeError
+
+    def reverse_complement(self):
+        complement_sequence = self.sequence.replace('A', 't').replace('T', 'a').replace('G', 'c').replace('C', 'g')
+        complement_sequence = complement_sequence.upper()
+        return complement_sequence[::-1]
 
 
 class Rna(Dna):
@@ -34,3 +32,8 @@ class Rna(Dna):
     def __transcribe(self, sequence):
         transcribe_sequence = sequence.replace('A', 'U').replace('T', 'A').replace('G', 'c').replace('C', 'G')
         self.sequence = transcribe_sequence.upper()
+
+    def reverse_complement(self):
+        complement_sequence = self.sequence.replace('A', 'u').replace('U', 'a').replace('G', 'c').replace('C', 'g')
+        complement_sequence = complement_sequence.upper()
+        return complement_sequence[::-1]
