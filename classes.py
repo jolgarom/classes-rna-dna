@@ -1,6 +1,4 @@
 class Rna(str):
-    sequence = ''
-
     def __init__(self, sequence):
         self.sequence = sequence.upper()
         if not all(symb in 'ACUG' for symb in self.sequence):
