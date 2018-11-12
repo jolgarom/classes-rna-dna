@@ -23,15 +23,14 @@ class Dna:
 class Rna(Dna):
     def __init__(self, sequence_object):
         if isinstance(sequence_object, Dna):
-            self.__transcribe(sequence_object.sequence)
+            self.__transcribe_dna(sequence_object.sequence)
         elif isinstance(sequence_object, str):
             self.sequence = sequence_object.upper()
         else:
             raise TypeError
 
-    def __transcribe(self, sequence):
-        transcribe_sequence = sequence.replace('A', 'U').replace('T', 'A').replace('G', 'c').replace('C', 'G')
-        self.sequence = transcribe_sequence.upper()
+    def __transcribe_dna(self, sequence):
+        self.sequence = sequence.replace('T', 'U')
 
     def reverse_complement(self):
         complement_sequence = self.sequence.replace('A', 'u').replace('U', 'a').replace('G', 'c').replace('C', 'g')
